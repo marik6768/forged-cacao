@@ -17,3 +17,13 @@ test('production build targets the GitHub Pages project path and brand title', a
   assert.match(config, /base:\s*['"]\/forged-cacao\//);
   assert.match(html, /<title>Forged Cacao<\/title>/);
 });
+
+test('craft is a standalone route and every product has its own source image', async () => {
+  const app = await readFile(new URL('../src/App.jsx', import.meta.url), 'utf8');
+  assert.match(app, /onNavigate\('\/craft'\)/);
+  assert.match(app, /function CraftPage/);
+  assert.match(app, /path === '\/craft'/);
+  const images = [...app.matchAll(/image: asset\('([^']+)'\)/g)].map((match) => match[1]);
+  assert.equal(images.length, 4);
+  assert.equal(new Set(images).size, 4);
+});
