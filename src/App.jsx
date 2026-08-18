@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 
+const asset = (file) => `${import.meta.env.BASE_URL}assets/${file}`;
+
 const products = [
-  { id: 'wrench', name: 'The Wrench', price: 28, badge: 'Best seller', image: '/assets/chrome-pop-hero.png', pos: '67% 40%' },
-  { id: 'socket', name: 'Socket Set', price: 42, badge: 'Limited drop', image: '/assets/chrome-pop-hero.png', pos: '55% 79%' },
-  { id: 'bolt', name: 'Big Bolt', price: 18, image: '/assets/chrome-pop-hero.png', pos: '55% 58%' },
-  { id: 'gear', name: 'Gear Stack', price: 34, image: '/assets/chrome-pop-hero.png', pos: '91% 30%' },
+  { id: 'wrench', name: 'The Wrench', price: 28, badge: 'Best seller', image: asset('chrome-pop-hero.png'), pos: '67% 40%' },
+  { id: 'socket', name: 'Socket Set', price: 42, badge: 'Limited drop', image: asset('chrome-pop-hero.png'), pos: '55% 79%' },
+  { id: 'bolt', name: 'Big Bolt', price: 18, image: asset('chrome-pop-hero.png'), pos: '55% 58%' },
+  { id: 'gear', name: 'Gear Stack', price: 34, image: asset('chrome-pop-hero.png'), pos: '91% 30%' },
 ];
 
 const money = (value) => `$${value.toFixed(2)}`;
@@ -41,11 +43,11 @@ function Cart({ cart, open, onClose, onQty, onRemove, onAdd }) {
 }
 
 function Home({ onAdd, onNavigate }) {
-  return <main><section className="hero" data-section="hero"><div className="hero-copy"><p className="eyebrow">EDIBLE METALLIC FINISH · HANDMADE IN SMALL BATCHES</p><h1>No workshop<br/>required.</h1><p className="hero-text">The world’s most convincing chocolate tools. Cast to fool them. Made to delight them.</p><button className="button primary" onClick={() => document.getElementById('bestsellers').scrollIntoView({ behavior: 'smooth' })}>See the illusion <span>→</span></button><p className="proof">★★★★★ &nbsp; 4.9 from 1,200+ gifts given</p></div><img src="/assets/chrome-pop-hero.png" alt="Metallic chocolate wrench split to show a cacao interior" /></section>
+  return <main><section className="hero" data-section="hero"><div className="hero-copy"><p className="eyebrow">EDIBLE METALLIC FINISH · HANDMADE IN SMALL BATCHES</p><h1>No workshop<br/>required.</h1><p className="hero-text">The world’s most convincing chocolate tools. Cast to fool them. Made to delight them.</p><button className="button primary" onClick={() => document.getElementById('bestsellers').scrollIntoView({ behavior: 'smooth' })}>See the illusion <span>→</span></button><p className="proof">★★★★★ &nbsp; 4.9 from 1,200+ gifts given</p></div><img src={asset('chrome-pop-hero.png')} alt="Metallic chocolate wrench split to show a cacao interior" /></section>
     <section className="trust" data-section="trust">{[['01','Hand cast','Every edge, groove and thread finished by hand.'],['02','Premium cacao','Single-origin chocolate with a proper snap.'],['03','Thermal safe','Insulated, tracked and gift-ready on arrival.']].map(([n,t,d]) => <div key={n}><span>{n}</span><h3>{t}</h3><p>{d}</p></div>)}</section>
     <section className="products section" id="bestsellers" data-section="featured-products"><div className="section-heading"><div><p className="eyebrow">THE HALL OF FAME</p><h2>Tools they’ll<br/>talk about.</h2></div><button className="line-button" onClick={() => onNavigate('/product/wrench')}>Shop all four →</button></div><div className="product-grid">{products.map(product => <ProductCard key={product.id} product={product} onAdd={onAdd} onNavigate={onNavigate} />)}</div></section>
-    <section className="craft" id="craft" data-section="craft"><div className="craft-image"><img src="/assets/chocolate-gift.jpg" alt="Artisanal chocolate gift box" /></div><div className="craft-copy"><p className="eyebrow">THE ILLUSION, EXPLAINED</p><h2>Looks forged.<br/><em>Breaks beautifully.</em></h2><p>We mold every piece at true 1:1 scale, then finish it with an edible metallic sheen. The reveal comes when the “steel” gives way to a deep cacao centre.</p><div className="steps"><span>01 <b>Cast</b></span><span>02 <b>Finish</b></span><span>03 <b>Gift</b></span></div></div></section>
-    <section className="reviews section" data-section="reviews"><div className="review-lead"><p className="eyebrow">NO ONE EXPECTS DESSERT</p><h2>“He tried to<br/>put it in his<br/>toolbox.”</h2><p>— Emily R., bought for Dad</p></div><div className="review-stack"><article><p>★★★★★</p><p>“The double-take was priceless. Then he ate the bolt in one bite.”</p><small>James M. · Verified buyer</small></article><img src="/assets/chocolate-detail.jpg" alt="Chocolate pieces on a dark surface" /></div></section>
+    <section className="craft" id="craft" data-section="craft"><div className="craft-image"><img src={asset('chocolate-gift.jpg')} alt="Artisanal chocolate gift box" /></div><div className="craft-copy"><p className="eyebrow">THE ILLUSION, EXPLAINED</p><h2>Looks forged.<br/><em>Breaks beautifully.</em></h2><p>We mold every piece at true 1:1 scale, then finish it with an edible metallic sheen. The reveal comes when the “steel” gives way to a deep cacao centre.</p><div className="steps"><span>01 <b>Cast</b></span><span>02 <b>Finish</b></span><span>03 <b>Gift</b></span></div></div></section>
+    <section className="reviews section" data-section="reviews"><div className="review-lead"><p className="eyebrow">NO ONE EXPECTS DESSERT</p><h2>“He tried to<br/>put it in his<br/>toolbox.”</h2><p>— Emily R., bought for Dad</p></div><div className="review-stack"><article><p>★★★★★</p><p>“The double-take was priceless. Then he ate the bolt in one bite.”</p><small>James M. · Verified buyer</small></article><img src={asset('chocolate-detail.jpg')} alt="Chocolate pieces on a dark surface" /></div></section>
     <section className="newsletter" data-section="newsletter"><p className="eyebrow">FIRST DIBS ON THE NEXT DROP</p><h2>Built for people<br/>who are hard to buy for.</h2><form onSubmit={(event) => { event.preventDefault(); event.currentTarget.reset(); alert('You’re on the list.'); }}><label className="sr-only" htmlFor="email">Email</label><input id="email" required type="email" placeholder="Your email address"/><button className="button primary">Join the club →</button></form></section>
   </main>;
 }
